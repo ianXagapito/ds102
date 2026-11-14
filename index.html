@@ -3,1056 +3,256 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>NC 101 — Networks and Communications Project Guidelines</title>
+<title>Bayes' Theorem Application Project – DS 102</title>
 <style>
-  :root{
-    --navy:#04486c;
-    --navy-light:#153f22;
-    --teal:#0f7a72;
-    --teal-light:#e3f3f1;
-    --accent:#d68a2c;
-    --text:#242a33;
-    --muted:#5c6270;
-    --line:#dde3e8;
-    --bg:#ffffff;
-    --panel:#f6f9fa;
-  }
-
-  *{ box-sizing:border-box; }
-  html{ scroll-behavior:smooth; }
-
-  body{
-    margin:0;
-    font-family:"Georgia","Iowan Old Style","Palatino Linotype",serif;
-    color:var(--text);
-    background:var(--bg);
-    line-height:1.65;
-    font-size:16px;
-  }
-
-  .cover{
-    background: linear-gradient(155deg, var(--navy) 0%, var(--navy-light) 55%, var(--teal) 130%);
-    color:#fff;
-    padding: 56px 48px 50px;
-    text-align:center;
-  }
-  .cover .school{
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    font-size:13px;
-    letter-spacing:.18em;
-    text-transform:uppercase;
-    color:#cfe7e3;
-    margin-bottom:4px;
-  }
-  .cover .college{
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    font-size:12px;
-    letter-spacing:.1em;
-    text-transform:uppercase;
-    color:#9fb9cf;
-    margin-bottom:22px;
-  }
-  .cover .code{
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    display:inline-block;
-    font-size:12px;
-    letter-spacing:.1em;
-    border:1px solid rgba(255,255,255,.4);
-    padding:5px 14px;
-    border-radius:999px;
-    margin-bottom:18px;
-    color:#fff;
-  }
-  .cover h1{
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    font-size:32px;
-    font-weight:700;
-    margin:0 0 8px;
-  }
-  .cover .subtitle{
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    font-size:15px;
-    color:#d8e6ee;
-    margin:0 0 28px;
-  }
-  .cover .stages{
-    display:flex;
-    justify-content:center;
-    gap:14px;
-    flex-wrap:wrap;
-    margin-bottom:32px;
-  }
-  .cover .stages span{
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    font-size:12px;
-    letter-spacing:.05em;
-    padding:7px 16px;
-    border:1px solid rgba(255,255,255,.35);
-    border-radius:999px;
-  }
-  .cover .fields{
-    max-width:560px;
-    margin:0 auto;
-    text-align:left;
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    font-size:13.5px;
-    color:#e9f1f5;
-  }
-  .cover .fields div{
-    display:flex;
-    border-bottom:1px dashed rgba(255,255,255,.3);
-    padding:9px 2px;
-  }
-  .cover .fields label{
-    width:150px;
-    flex-shrink:0;
-    color:#bfe0da;
-  }
-
-  .wrap{
-    max-width:880px;
-    margin:0 auto;
-    padding:0 48px 80px;
-  }
-
-  nav.toc{
-    background:var(--panel);
-    border:1px solid var(--line);
-    border-radius:10px;
-    margin:-30px auto 56px;
-    padding:28px 32px;
-    max-width:784px;
-    font-family:"Helvetica Neue",Arial,sans-serif;
-  }
-  nav.toc h2{
-    font-size:12px;
-    letter-spacing:.15em;
-    text-transform:uppercase;
-    color:var(--muted);
-    margin:0 0 14px;
-  }
-  nav.toc ol{
-    columns:2;
-    column-gap:32px;
-    margin:0;
-    padding-left:18px;
-    font-size:13px;
-  }
-  nav.toc li{
-    margin-bottom:7px;
-    break-inside:avoid;
-  }
-  nav.toc a{ color:var(--navy); text-decoration:none; }
-  nav.toc a:hover{ color:var(--accent); text-decoration:underline; }
-  nav.toc .part-label{
-    font-weight:700;
-    color:var(--teal);
-    list-style:none;
-    margin-left:-18px;
-    margin-top:10px;
-    font-size:11.5px;
-    text-transform:uppercase;
-    letter-spacing:.08em;
-  }
-
-  .part-divider{
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    text-align:center;
-    margin:64px 0 40px;
-  }
-  .part-divider .line{ height:1px; background:var(--line); margin:0 0 16px; }
-  .part-divider span{
-    display:inline-block;
-    background:var(--teal);
-    color:#fff;
-    font-size:12px;
-    letter-spacing:.15em;
-    text-transform:uppercase;
-    padding:8px 22px;
-    border-radius:999px;
-  }
-
-  section{ margin-bottom:42px; scroll-margin-top:24px; }
-
-  h2.section-title{
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    display:flex;
-    align-items:baseline;
-    gap:12px;
-    font-size:18.5px;
-    color:var(--navy);
-    border-bottom:2px solid var(--teal);
-    padding-bottom:10px;
-    margin:0 0 18px;
-  }
-  h2.section-title .num{ font-size:13px; color:var(--teal); font-weight:700; letter-spacing:.05em; }
-
-  h3{
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    font-size:14.5px;
-    color:var(--navy-light);
-    margin:24px 0 10px;
-  }
-  h4{
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    font-size:13.5px;
-    color:var(--teal);
-    margin:18px 0 8px;
-  }
-
-  p{ margin:0 0 12px; }
-  ul, ol.plain{ margin:0 0 14px; padding-left:22px; }
-  li{ margin-bottom:6px; }
-
-  .callout{
-    background:var(--teal-light);
-    border-left:4px solid var(--teal);
-    padding:14px 18px;
-    border-radius:4px;
-    font-size:14.5px;
-    color:#123c37;
-    margin:16px 0;
-  }
-  .callout strong{ color:var(--navy); }
-
-  .example-box{
-    background:var(--panel);
-    border:1px solid var(--line);
-    border-left:4px solid var(--navy-light);
-    border-radius:6px;
-    padding:14px 18px;
-    font-size:14px;
-    margin:14px 0;
-  }
-  .example-box .tag{
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    font-size:10.5px;
-    letter-spacing:.1em;
-    text-transform:uppercase;
-    color:var(--navy-light);
-    margin-bottom:6px;
-    display:block;
-  }
-
-  table{
-    width:100%;
-    border-collapse:collapse;
-    margin:14px 0 22px;
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    font-size:13px;
-  }
-  caption{ text-align:left; font-size:12px; color:var(--muted); margin-bottom:6px; font-style:italic; }
-  th, td{ border:1px solid var(--line); padding:9px 11px; text-align:left; vertical-align:top; }
-  th{ background:var(--navy); color:#fff; font-weight:600; letter-spacing:.02em; }
-  tr:nth-child(even) td{ background:var(--panel); }
-  td.center, th.center{ text-align:center; white-space:nowrap; }
-
-  .checklist{ list-style:none; padding-left:0; margin:10px 0 20px; }
-  .checklist li{ position:relative; padding-left:30px; margin-bottom:9px; font-size:14px; }
-  .checklist li::before{
-    content:"";
-    position:absolute; left:0; top:2px;
-    width:16px; height:16px;
-    border:1.5px solid var(--navy-light);
-    border-radius:4px;
-    background:#fff;
-  }
-
-  .flow{
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    background:var(--panel);
-    border:1px solid var(--line);
-    border-radius:10px;
-    padding:26px 20px;
-    margin:16px 0;
-  }
-  .flow ol{
-    list-style:none; padding:0; margin:0;
-    display:flex; flex-direction:column; align-items:center;
-  }
-  .flow li{
-    background:#fff;
-    border:1px solid var(--line);
-    border-left:4px solid var(--teal);
-    padding:9px 18px;
-    border-radius:6px;
-    font-size:12.5px;
-    width:100%;
-    max-width:460px;
-    text-align:center;
-  }
-  .flow li:not(:last-child)::after{
-    content:"↓";
-    display:block;
-    color:var(--accent);
-    font-size:15px;
-    margin:2px 0;
-  }
-
-  .grid2{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    font-size:13px;
-    margin:14px 0 20px;
-  }
-  .grid2 .card{
-    border:1px solid var(--line);
-    border-radius:8px;
-    padding:12px 14px;
-    background:#fff;
-  }
-  .grid2 .card b{ display:block; color:var(--navy); margin-bottom:4px; font-size:13px; }
-  .grid2 .card{ color:var(--muted); }
-
-  .tag-list{
-    display:flex;
-    flex-wrap:wrap;
-    gap:7px;
-    margin:10px 0 20px;
-    font-family:"Helvetica Neue",Arial,sans-serif;
-  }
-  .tag-list span{
-    background:var(--teal-light);
-    color:#0c554f;
-    font-size:12px;
-    padding:5px 12px;
-    border-radius:999px;
-    border:1px solid #c8e6e2;
-  }
-
-
-
-  .principle-flow{
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    display:flex; flex-wrap:wrap; gap:8px; justify-content:center;
-    margin:18px 0;
-  }
-  .principle-flow span{
-    background:var(--navy);
-    color:#fff;
-    padding:8px 14px;
-    border-radius:999px;
-    font-size:12px;
-  }
-  .principle-flow .arrow{ background:none; color:var(--accent); padding:8px 0; font-weight:700; }
-
-  .step-num{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    width:22px; height:22px;
-    background:var(--teal);
-    color:#fff;
-    border-radius:50%;
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    font-size:12px;
-    font-weight:700;
-    margin-right:8px;
-  }
-
-  .note{
-    font-size:13px;
-    color:var(--muted);
-  }
-
-  footer{
-    text-align:center;
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    font-size:12px;
-    color:var(--muted);
-    padding:30px 20px 50px;
-    border-top:1px solid var(--line);
-    margin-top:40px;
-  }
-
-  @media (max-width:640px){
-    .cover{ padding:40px 20px 36px; }
-    .wrap{ padding:0 18px 60px; }
-    nav.toc{ margin:-22px 8px 40px; padding:20px; }
-    nav.toc ol{ columns:1; }
-    .grid2{ grid-template-columns:1fr; }
-    table{ font-size:11.5px; }
-    th, td{ padding:6px 8px; }
-  }
-
-  @media print{
-    nav.toc{ break-after:page; }
-    .part-divider{ break-before:page; }
-    section{ break-inside:avoid; }
-  }
-  img {
-  border-radius: 50%;
-  margin: auto;
-   object-fit: cover;
-}
-
-</style>
+:root{--g9:#14532d;--g7:#15803d;--g5:#22c55e;--g2:#bbf7d0;--g1:#dcfce7;--g0:#f0fdf4;--ink:#1a2e22;--mut:#4b6355}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Georgia,'Times New Roman',serif;background:var(--g0);color:var(--ink);line-height:1.65}
+h1,h2,h3,nav,th,.tag,.stage{font-family:'Segoe UI',Helvetica,Arial,sans-serif}
+header{background:linear-gradient(135deg,var(--g9),var(--g7));color:#fff;padding:56px 20px 64px;text-align:center}
+.tag{display:inline-block;background:var(--g2);color:var(--g9);font-weight:600;font-size:.85rem;padding:4px 14px;border-radius:99px;margin:3px}
+header h1{font-size:clamp(2rem,5vw,3.2rem);margin:18px 0 8px}
+header p{margin:0;color:var(--g1)}
+nav{position:sticky;top:0;z-index:5;background:var(--g1);border-bottom:2px solid var(--g5);display:flex;gap:4px;overflow-x:auto;padding:8px 12px}
+nav a{white-space:nowrap;text-decoration:none;color:var(--g9);font-size:.85rem;font-weight:600;padding:6px 12px;border-radius:8px}
+nav a:hover{background:var(--g5);color:#fff}
+main{max-width:980px;margin:0 auto;padding:24px 16px 60px}
+section{background:#fff;border:1px solid var(--g2);border-radius:16px;padding:26px 28px;margin:22px 0;box-shadow:0 2px 10px rgba(20,83,45,.07)}
+h2{color:var(--g9);margin:0 0 14px;font-size:1.5rem;display:flex;align-items:center;gap:12px}
+h2 .n{background:var(--g7);color:#fff;min-width:36px;height:36px;border-radius:10px;display:grid;place-items:center;font-size:1rem}
+h3{color:var(--g7);margin:20px 0 8px}
+ul,ol{padding-left:22px}li{margin:5px 0}
+li::marker{color:var(--g7);font-weight:700}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.card{background:var(--g0);border:1px solid var(--g2);border-left:5px solid var(--g5);border-radius:12px;padding:14px 18px}
+.card h3{margin:0 0 6px}
+.card.alt{background:var(--g1)}
+.callout{background:var(--g1);border-left:5px solid var(--g7);padding:12px 18px;border-radius:0 12px 12px 0;margin:14px 0}
+.formula{background:var(--g9);color:var(--g1);padding:12px 18px;border-radius:12px;text-align:center;font-family:Cambria,serif;font-size:1.15rem;margin:14px 0}
+.tw{overflow-x:auto;margin:12px 0;border-radius:12px;border:1px solid var(--g2)}
+table{border-collapse:collapse;width:100%;font-size:.92rem;min-width:520px}
+th{background:var(--g7);color:#fff;text-align:left;padding:10px 12px}
+td{padding:9px 12px;border-top:1px solid var(--g2);vertical-align:top}
+tr:nth-child(even) td{background:var(--g0)}
+tr.total td{background:var(--g2);font-weight:700}
+.tl{position:relative;margin:10px 0 0 14px;padding-left:26px;border-left:3px solid var(--g5)}
+.step{position:relative;margin-bottom:16px;background:var(--g0);border-radius:12px;padding:12px 16px;border:1px solid var(--g2)}
+.step::before{content:"";position:absolute;left:-36px;top:18px;width:16px;height:16px;border-radius:50%;background:var(--g7);border:3px solid var(--g1)}
+.stage{color:var(--g7);font-weight:700;font-size:.85rem;text-transform:uppercase;letter-spacing:.05em}
+.step.due{background:var(--g1);border-color:var(--g5)}
+.step.due::before{background:var(--g9)}
+.score{display:flex;align-items:center;gap:10px}
+.bar{height:8px;border-radius:6px;background:var(--g2);flex:1;overflow:hidden}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--g5),var(--g7))}
+footer{background:var(--g9);color:var(--g1);text-align:center;padding:28px 16px;font-family:'Segoe UI',sans-serif}
+footer b{color:#fff}
+@media print{nav{display:none}section{box-shadow:none;break-inside:avoid}}
+@media(max-width:600px){section{padding:20px 16px}}
 </style>
 </head>
 <body>
+<header>
+  <span class="tag">DS 102 Discrete Structures</span><span class="tag">B.S. Computer Science</span>
+  <h1>Bayes' Theorem Application Project</h1>
+  <p>Research a real computing system · Build and solve your own Bayesian model</p>
+</header>
 
-  <div class="cover">
-  <div><img src="mc.jpg"  width="90" height="90">
-    <img src="ccs.jpg"  width="90" height="90"> </div>
-    <div class="school"><strong>Mabini Colleges, Inc.</strong></div>
-    <div class="college">College of Computer Studies</div>
-    <div class="code">NC 101 · Networks and Communications</div>
-    <h1>Project Guidelines</h1>
-    <p class="subtitle">Bachelor of Science in Computer Science<br> A.Y 2026 - 2027</p>
-    <div class="stages">
-      <span>Proposal Defense</span>
-      <span>Project Development</span>
-      <span>Final Defense</span>
-    </div>
-    <div class="fields">
-   
-    </div>
+<nav>
+  <a href="#overview">Overview</a><a href="#objectives">Objectives</a><a href="#task">Task</a><a href="#research">Research</a><a href="#deliverables">Deliverables</a><a href="#ethics">Ethics</a><a href="#timeline">Timeline</a><a href="#guidelines">Guidelines</a><a href="#rubric">Rubric</a>
+</nav>
+
+<main>
+
+<section id="overview">
+  <h2><span class="n">1</span>Project Overview</h2>
+  <div class="cards">
+    <div class="card"><h3>Part 1 · Research</h3>Your group investigates how Bayes' Theorem is used in a real computing system and finds credible values for the probabilities involved.</div>
+    <div class="card alt"><h3>Part 2 · Application</h3>You build and solve your own Bayesian model using those researched values, interpret the results, and discuss the ethical issues of probabilistic inference.</div>
+  </div>
+  <p>The project includes a <strong>weekly consultation checkpoint</strong> and a <strong>short presentation</strong>.</p>
+  <div class="formula">P(A | B) = P(B | A) · P(A) / P(B)</div>
+</section>
+
+<section id="objectives">
+  <h2><span class="n">2</span>Objectives</h2>
+  <p>By the end of the project, you should be able to:</p>
+  <ol>
+    <li>Research how Bayes' Theorem is used in a real computing system, using credible sources.</li>
+    <li>Translate a real-world computing scenario into events, priors, and conditional probabilities, and justify the values with research.</li>
+    <li>Use the Law of Total Probability to compute P(evidence) from a partition of the sample space.</li>
+    <li>Apply Bayes' Theorem to compute and interpret posterior probabilities.</li>
+    <li>Represent the solution with a probability tree diagram and a computation table.</li>
+    <li>Evaluate how changing the prior, sensitivity, or false-positive rate affects the result.</li>
+    <li>Compare your results with findings reported in your sources and state the limitations of your model.</li>
+    <li>Discuss ethical issues such as bias, false positives, and privacy in probabilistic inference.</li>
+  </ol>
+</section>
+
+<section id="task">
+  <h2><span class="n">3</span>Task Description</h2>
+  <div class="callout">Each member chooses <strong>one</strong> scenario below: Options A to C, or an approved research-based option listed after Option C.</div>
+
+  <h3>Option A — Spam Filtering</h3>
+  <p>An email system receives messages that are either <strong>Spam (S)</strong> or <strong>Not Spam (S′)</strong>. The system flags a message based on keywords (e.g., “free”, “winner”, “claim”, “urgent”). Your group must:</p>
+  <ul>
+    <li>Define the prior P(S) using a stated proportion of spam in a mailbox.</li>
+    <li>Choose at least <strong>three keywords</strong> and assign P(keyword | S) and P(keyword | S′). Justify your values (a sample of at least 50 messages your group creates or collects, with personal details removed, is acceptable).</li>
+    <li>Compute P(S | keyword) for each keyword using Bayes' Theorem.</li>
+    <li>Compute P(S | two or more keywords) under a stated independence assumption (naive Bayes), and explain when this assumption is unrealistic.</li>
+  </ul>
+
+  <h3>Option B — Diagnostic Testing (Software or Device Screening)</h3>
+  <p>A screening tool tests for a condition <strong>D</strong> (e.g., a disease in a health-screening app, or a defect in a manufactured device), with a <strong>sensitivity</strong> P(+ | D) and a <strong>false-positive rate</strong> P(+ | D′). Your group must:</p>
+  <ul>
+    <li>Define the prevalence P(D) with a stated source or assumption.</li>
+    <li>Compute P(+) using the Law of Total Probability.</li>
+    <li>Compute the <strong>positive predictive value</strong> P(D | +) and the <strong>negative predictive value</strong> P(D′ | −).</li>
+    <li>Show how P(D | +) changes when prevalence is 1%, 5%, 20%, and 50%, and explain the base-rate effect.</li>
+    <li>Analyze a <strong>second, independent test</strong> and compute P(D | +, +).</li>
+  </ul>
+
+  <h3>Option C — Fault Detection in a System</h3>
+  <p>A system has three machines (or servers/modules) <strong>M₁, M₂, M₃</strong> that produce a share of total output (or handle a share of requests), each with a different defect or failure rate. When a defect or failure is found, determine which source is most likely responsible. Your group must:</p>
+  <ul>
+    <li>Define P(Mᵢ) for each source and P(Defect | Mᵢ).</li>
+    <li>Compute P(Defect) using the Law of Total Probability.</li>
+    <li>Compute P(Mᵢ | Defect) for all three sources and rank them.</li>
+    <li>Recommend which source to inspect first and explain why, then show how the ranking changes if a source's workload share is doubled.</li>
+  </ul>
+
+  <h3>Other Approved Scenarios</h3>
+  <p>Write your own requirements following the pattern of Options A to C (define priors and conditionals, use the Law of Total Probability, compute the posterior, run a sensitivity analysis, interpret the result) and have it approved at consultation.</p>
+  <div class="tw"><table>
+    <tr><th>Scenario</th><th>Prior</th><th>Evidence</th><th>Posterior to compute</th></tr>
+    <tr><td><strong>Fraud detection</strong></td><td>Share of transactions that are fraudulent</td><td>Unusual location, amount, or time</td><td>P(fraud | flagged)</td></tr>
+    <tr><td><strong>Malware detection</strong></td><td>Share of files that are malicious</td><td>Suspicious API call or signature match</td><td>P(malware | alert)</td></tr>
+    <tr><td><strong>Network anomaly detection</strong></td><td>Usual rate of attacks on a server</td><td>Sudden traffic spike</td><td>P(attack | spike)</td></tr>
+    <tr><td><strong>Defect prediction in software</strong></td><td>Share of modules containing bugs</td><td>High code complexity or many recent changes</td><td>P(buggy | complex)</td></tr>
+    <tr><td><strong>Biometric authentication</strong></td><td>Share of attempts by genuine users</td><td>Fingerprint or face match</td><td>P(genuine | match)</td></tr>
+    <tr><td><strong>Text classification (naive Bayes)</strong></td><td>Share of messages in each category</td><td>Words appearing in the message</td><td>P(category | words)</td></tr>
+  </table></div>
+</section>
+
+<section id="research">
+  <h2><span class="n">4</span>Research Component</h2>
+  <p>Your project must be grounded in research. Before building the model, investigate how Bayesian reasoning is used in systems like the one you chose, and use what you find to justify your probabilities.</p>
+
+  <h3>Research questions</h3>
+  <ol>
+    <li>How does a real system in this area use Bayes' Theorem or Bayesian reasoning, and what problem does it solve?</li>
+    <li>What are realistic values for the prior, the sensitivity (or likelihood), and the false-positive rate, according to published sources?</li>
+    <li>What assumptions do real systems make (e.g., independence between features), and where do those assumptions fail?</li>
+    <li>What are the documented consequences of errors, such as false alarms and missed detections, in this area?</li>
+    <li>How do your computed results compare with the values and findings reported in your sources?</li>
+  </ol>
+
+  <h3>Source requirements</h3>
+  <ul>
+    <li>At least <strong>four credible sources</strong>: at least two academic (journal articles, conference papers, or textbooks) and at least one technical documentation page or industry report.</li>
+    <li>Sources must be real, accessible, and cited in APA format. Encyclopedias and blogs may support background reading but do not count toward the minimum.</li>
+    <li>Prefer sources from the last 10 years, unless a classic source is needed.</li>
+    <li>Where no published value exists, state your assumption and label it clearly as an <strong>assumption</strong>.</li>
+  </ul>
+
+  <h3>Research outputs</h3>
+  <div class="cards">
+    <div class="card"><h3>① Research summary</h3>1 to 1.5 pages answering the five research questions.</div>
+    <div class="card"><h3>② Annotated bibliography</h3>One row per source, in the format below.</div>
+    <div class="card"><h3>③ Sourced probability table</h3>Every prior and conditional probability, its value, and its source or assumption.</div>
+    <div class="card"><h3>④ One presentation slide</h3>On the key research findings.</div>
   </div>
 
-  <nav class="toc">
-    <h2>Contents</h2>
-    <ol>
-      <li>I. Project Overview — <a href="#s1">jump</a></li>
-      <li>II. Project Purpose — <a href="#s2">jump</a></li>
-      <li>III. Outcome-Based Project Alignment — <a href="#s3">jump</a></li>
-      <li>IV. Project Concept — <a href="#s4">jump</a></li>
-      <li>V. Project Selection Guidelines — <a href="#s5">jump</a></li>
-      <li>VI. Required Networking Component — <a href="#s6">jump</a></li>
-      <li>VII. Local and Online Requirement — <a href="#s7">jump</a></li>
-      <li>VIII. Project Selection Criteria — <a href="#s8">jump</a></li>
-      <li>IX. Examples of Acceptable Projects — <a href="#s9">jump</a></li>
-      <li>X. Projects That Should Not Be Approved — <a href="#s10">jump</a></li>
-      <li class="part-label">Part I — Proposal Defense</li>
-      <li>XI. Purpose of the Proposal Defense — <a href="#s11">jump</a></li>
-      <li>XII. Proposal Defense Panel — <a href="#s12">jump</a></li>
-      <li>XIII. Proposal Defense Fee — <a href="#s13">jump</a></li>
-      <li>XIV. Simplified Proposal Format — <a href="#s14">jump</a></li>
-      <li>XV. Proposal Defense Presentation — <a href="#s15">jump</a></li>
-      <li>XVI. Proposal Defense Output — <a href="#s16">jump</a></li>
-      <li>XVII. Project Progress Map — <a href="#s17">jump</a></li>
-      <li>XVIII. Weekly Progress Monitoring — <a href="#s18">jump</a></li>
-      <li class="part-label">Part II — Final Defense</li>
-      <li>XIX. Purpose of the Final Defense — <a href="#s19">jump</a></li>
-      <li>XX. Final Project Requirements — <a href="#s20">jump</a></li>
-      <li>XXI. Required Final Demonstration — <a href="#s21">jump</a></li>
-      <li>XXII. Simplified Final Manuscript Format — <a href="#s22">jump</a></li>
-      <li>XXIII. Required Final Deliverables — <a href="#s23">jump</a></li>
-      <li>XXIV. Final Submission Checklist — <a href="#s24">jump</a></li>
-      <li>XXV. Final Defense Presentation Format — <a href="#s25">jump</a></li>
-      <li>XXVI. Final Defense Evaluation Areas — <a href="#s26">jump</a></li>
-      <li>XXVII. Individual Participation — <a href="#s27">jump</a></li>
-      <li>XXVIII. Minimum Technical Expectations — <a href="#s28">jump</a></li>
-    </ol>
-  </nav>
+  <h3>Annotated bibliography format</h3>
+  <div class="tw"><table>
+    <tr><th>Source (APA)</th><th>Type</th><th>Key finding</th><th>How your group used it</th></tr>
+    <tr><td>Author, A. (Year). Title. Publisher or Journal.</td><td>Journal article, textbook, documentation, or report</td><td>Two or more sentences</td><td>The value, assumption, or idea it supports, and your understanding</td></tr>
+  </table></div>
+</section>
 
-  <div class="wrap">
-
-    <section id="s1">
-      <h2 class="section-title"><span class="num">I.</span> Project Overview</h2>
-      <p>The <strong>NC 101 Networks and Communications Project</strong> is a culminating, outcome-based group project designed to allow 4th-year BS Computer Science students to apply their knowledge of computer networking in a practical and systematic computing environment.</p>
-      <p>The project requires students to identify a real-world networking problem or need and develop a working network-based solution. The project should demonstrate both a <strong>logical approach</strong> to network design and a <strong>systematic approach</strong> to configuration, implementation, testing, troubleshooting, security, and documentation.</p>
-      <div class="callout">The project must demonstrate how <strong>computer systems, system software, and application software communicate and operate through a network</strong> — either through a Local Area Network (LAN), an online/WAN environment, or a combination of both.</div>
-      <p>The project should integrate appropriate networking concepts such as:</p>
-      <div class="tag-list">
-        <span>OSI &amp; TCP/IP models</span><span>IP addressing &amp; subnetting</span><span>Static/dynamic IP</span>
-        <span>Default gateway</span><span>DNS</span><span>DHCP</span><span>NAT</span><span>Network topology</span>
-        <span>Network devices</span><span>Network protocols</span><span>Client-server architecture</span>
-        <span>File/resource sharing</span><span>Network security</span><span>Network troubleshooting</span>
-        <span>Network-aware applications</span><span>TCP/UDP communication</span><span>Socket programming</span>
-        <span>Local &amp; online connectivity</span><span>Performance &amp; reliability</span>
-      </div>
-      <p class="note">The project is intended to demonstrate that students can move from problem identification → network planning → configuration → application/system integration → testing → troubleshooting → documentation → professional presentation.</p>
-    </section>
-
-    <section id="s2">
-      <h2 class="section-title"><span class="num">II.</span> Project Purpose</h2>
-      <p>The project aims to provide students with an opportunity to:</p>
-      <ol class="plain">
-        <li>Apply networking theories and principles to a real-world computing problem.</li>
-        <li>Design an appropriate network architecture based on identified requirements.</li>
-        <li>Configure physical, logical, and software-based networking components.</li>
-        <li>Demonstrate communication between networked computers and systems.</li>
-        <li>Deploy or integrate an application/system that operates through the network.</li>
-        <li>Apply appropriate network protocols and addressing schemes.</li>
-        <li>Configure basic network services such as DHCP, DNS, file sharing, or web services when applicable.</li>
-        <li>Demonstrate secure and responsible use of network resources.</li>
-        <li>Test network connectivity, performance, reliability, and functionality.</li>
-        <li>Troubleshoot network and application communication problems.</li>
-        <li>Document network configurations and system procedures.</li>
-        <li>Communicate and defend technical decisions professionally.</li>
-      </ol>
-    </section>
-
-    <section id="s3">
-      <h2 class="section-title"><span class="num">III.</span> Outcome-Based Project Alignment</h2>
-      <p>The project is aligned with the NC 101 Course Outcomes and their corresponding indicators.</p>
-      <table>
-        <thead><tr><th style="width:42%;">Course Outcome</th><th>Project Evidence / Indicator</th></tr></thead>
-        <tbody>
-          <tr><td><strong>CO1.</strong> Demonstrate understanding of fundamental concepts of computer networking.</td><td>Students explain the OSI/TCP-IP models, protocols, network types, addressing, topology, and network components used in the project.</td></tr>
-          <tr><td><strong>CO2.</strong> Analyze and model computer network architectures, protocol stacks, and data communication.</td><td>Students produce a network architecture diagram and explain the flow of data between devices, services, and applications.</td></tr>
-          <tr><td><strong>CO3.</strong> Apply various networking models in setting up a computer network.</td><td>Students configure a working LAN/online network using appropriate devices, IP addressing, protocols, and network services.</td></tr>
-          <tr><td><strong>CO4.</strong> Design, configure, and secure reliable network topologies.</td><td>Students implement appropriate topology, addressing, access controls, security measures, and troubleshooting procedures.</td></tr>
-          <tr><td><strong>CO5.</strong> Develop network-aware software applications and client-server systems.</td><td>Students demonstrate an application or system that communicates through the network using appropriate protocols, APIs, or client-server mechanisms.</td></tr>
-        </tbody>
-      </table>
-    </section>
-
-    <section id="s4">
-      <h2 class="section-title"><span class="num">IV.</span> Project Concept</h2>
-      <p>The project should follow the following basic structure:</p>
-      <div class="flow">
-        <ol>
-          <li>Real-World Problem</li>
-          <li>Network Requirements</li>
-          <li>Network Design</li>
-          <li>Network Configuration</li>
-          <li>System/Application Integration</li>
-          <li>Local/Online Communication</li>
-          <li>Testing and Troubleshooting</li>
-          <li>Security Validation</li>
-          <li>Documentation</li>
-          <li>Final Demonstration and Defense</li>
-        </ol>
-      </div>
-      <div class="callout">The project should not be limited to simply drawing a network diagram or connecting computers. A successful project must demonstrate a <strong>working network environment</strong> and show how an application, service, or computing system operates through that network.</div>
-    </section>
-
-    <section id="s5">
-      <h2 class="section-title"><span class="num">V.</span> Project Selection Guidelines</h2>
-      <h3>A. General Rule</h3>
-      <p>Each group must identify a real-world problem, organization, process, or scenario where networking is an important part of the proposed solution.</p>
-      <p>Projects may be based on:</p>
-      <div class="tag-list">
-        <span>School/university systems</span><span>Small businesses</span><span>Offices</span><span>Clinics</span>
-        <span>Libraries</span><span>Retail stores</span><span>Inventory systems</span><span>Computer laboratories</span>
-        <span>Local government services</span><span>Community services</span><span>Transportation systems</span>
-        <span>Agricultural systems</span><span>Hospitality systems</span><span>Online services</span>
-        <span>Monitoring systems</span><span>File/resource sharing</span><span>Client-server applications</span>
-        <span>Other approved environments</span>
-      </div>
-    </section>
-
-    <section id="s6">
-      <h2 class="section-title"><span class="num">VI.</span> Required Networking Component</h2>
-      <p>Every project must have a clearly identifiable networking component. The project should demonstrate at least several of the following:</p>
-      <div class="grid2">
-        <div class="card"><b>Network Infrastructure</b>LAN/WLAN, router, switch, access point, NIC, Ethernet/RJ45 cabling, Internet/WAN connection, virtual network environment</div>
-        <div class="card"><b>Network Configuration</b>IP addressing, subnet mask, default gateway, DNS, DHCP, NAT, static IP, dynamic IP, VLAN when appropriate</div>
-        <div class="card"><b>Network Services</b>Web service, file sharing, database access, DNS service, DHCP service, authentication service, remote access, cloud/online service</div>
-        <div class="card"><b>Application Communication</b>Client-server communication, TCP, UDP, HTTP/HTTPS, FTP/SFTP where appropriate, socket programming, REST/API communication, database-server communication</div>
-        <div class="card"><b>Security</b>User authentication, password protection, access control, firewall rules, network segmentation, secure protocols, basic data protection</div>
-      </div>
-    </section>
-
-    <section id="s7">
-      <h2 class="section-title"><span class="num">VII.</span> Local and Online Requirement</h2>
-      <p>Whenever technically and financially feasible, the project should demonstrate both:</p>
-      <h3>A. Local Network Operation</h3>
-      <div class="example-box"><span class="tag">Example</span>Client Computer → Switch → Server → Application/Database</div>
-      <p>Students should demonstrate that computers connected to the LAN can access the required system or service.</p>
-      <h3>B. Online/WAN Operation</h3>
-      <div class="example-box"><span class="tag">Example</span>Client → Internet → Web/Application Server → Database</div>
-      <p>Students should demonstrate how the system can communicate outside the local network when the proposed project requires online access.</p>
-      <div class="callout"><strong>Important:</strong> A project does <strong>not</strong> need to expose an actual server directly to the public Internet merely to satisfy this requirement.</div>
-      <p>Students may use:</p>
-      <div class="tag-list">
-        <span>Virtual machines</span><span>Packet Tracer / GNS3 / EVE-NG</span><span>Localhost/LAN server</span>
-        <span>Cloud hosting</span><span>Cloud database</span><span>Web hosting</span><span>VPN</span>
-        <span>Virtual private networks</span><span>Simulated WAN environments</span><span>Other instructor-approved environments</span>
-      </div>
-      <p class="note">The method must be clearly documented.</p>
-    </section>
-
-    <section id="s8">
-      <h2 class="section-title"><span class="num">VIII.</span> Project Selection Criteria</h2>
-      <p>Before development begins, groups must submit a <strong>Project Selection Sheet</strong>. The proposed project must satisfy the following:</p>
-      <table>
-        <thead><tr><th style="width:34%;">Criterion</th><th>Requirement</th></tr></thead>
-        <tbody>
-          <tr><td>Real-world problem</td><td>Must address an identifiable problem or need</td></tr>
-          <tr><td>Networking relevance</td><td>Networking must be essential to the project</td></tr>
-          <tr><td>Technical feasibility</td><td>Can reasonably be completed using available resources</td></tr>
-          <tr><td>Application/system component</td><td>Must contain a working software or system component</td></tr>
-          <tr><td>Network configuration</td><td>Must demonstrate actual or simulated configuration</td></tr>
-          <tr><td>Testing</td><td>Must include connectivity and system testing</td></tr>
-          <tr><td>Security</td><td>Must include reasonable security measures</td></tr>
-          <tr><td>Documentation</td><td>Must include technical documentation</td></tr>
-          <tr><td>Time</td><td>Must be achievable within the approved project period</td></tr>
-          <tr><td>Group capability</td><td>Tasks must be distributed among members</td></tr>
-        </tbody>
-      </table>
-    </section>
-
-    <section id="s9">
-      <h2 class="section-title"><span class="num">IX.</span> Examples of Acceptable Projects</h2>
-      <p class="note">The following are examples only. Groups may propose other projects subject to approval.</p>
-      <h4>1. School Laboratory Network and Resource Sharing System</h4>
-      <p>A LAN connecting student computers to a server providing file sharing, web services, user access, and shared resources.</p>
-      <h4>2. Network-Based Inventory Management System</h4>
-      <p>A client-server inventory application where multiple computers access a centralized database through a LAN.</p>
-      <h4>3. Small Business Point-of-Sale Network</h4>
-      <p>A network connecting POS terminals, database/server, printer, and administrator workstation.</p>
-      <h4>4. Computer Laboratory Management System</h4>
-      <p>A network-based system for monitoring computers, users, equipment, and laboratory resources.</p>
-      <h4>5. Network-Based File Management System</h4>
-      <p>A controlled file-sharing environment with authentication and user permissions.</p>
-      <h4>6. Client-Server Chat or Communication System</h4>
-      <p>A TCP/UDP or socket-based application demonstrating communication between multiple network clients.</p>
-      <h4>7. Online Student Service System</h4>
-      <p>A web-based application accessible through a local network and/or online environment.</p>
-      <h4>8. Network Monitoring and Administration System</h4>
-      <p>A system that monitors network connectivity, devices, availability, or selected network performance indicators.</p>
-      <h4>9. Small Office Network Infrastructure</h4>
-      <p>A complete simulated or physical office network containing workstations, server, router, switch, DHCP/DNS, Internet access, and security controls.</p>
-      <h4>10. Hybrid Local and Online System</h4>
-      <p>A system where users access services locally while selected services are available online.</p>
-    </section>
-
-    <section id="s10">
-      <h2 class="section-title"><span class="num">X.</span> Projects That Should Not Be Approved</h2>
-      <p>Projects should be revised or rejected when they:</p>
+<section id="deliverables">
+  <h2><span class="n">5</span>Requirements and Deliverables</h2>
+  <p>Each group member submits the following:</p>
+  <div class="cards">
+    <div class="card"><h3>1 · Written report</h3><strong>6–8 pages</strong>, excluding the cover page:
       <ul>
-        <li>Are purely software applications with no meaningful networking component.</li>
-        <li>Only create a static website.</li>
-        <li>Only create a database without network implementation.</li>
-        <li>Only create a network diagram without configuration.</li>
-        <li>Only configure Packet Tracer without demonstrating the purpose of the network.</li>
-        <li>Have no identifiable real-world problem.</li>
-        <li>Cannot demonstrate network communication.</li>
-        <li>Depend entirely on copying an existing project.</li>
-        <li>Cannot reasonably be completed within the project period.</li>
-        <li>Require resources or technologies that are unavailable to the group.</li>
-        <li>Violate institutional policies, privacy requirements, or applicable laws.</li>
-      </ul>
-    </section>
-
-    <div class="part-divider"><div class="line"></div><span>Part I — Proposal Defense</span></div>
-
-    <section id="s11">
-      <h2 class="section-title"><span class="num">XI.</span> Purpose of the Proposal Defense</h2>
-      <p>The Proposal Defense determines whether the proposed project is:</p>
-      <ul>
-        <li>Relevant</li>
-        <li>Technically feasible</li>
-        <li>Network-oriented</li>
-        <li>Outcome-aligned</li>
-        <li>Achievable within the given period</li>
-        <li>Appropriate for 4th-year BSCS students</li>
-      </ul>
-      <p>The proposal defense is also intended to prevent groups from developing projects that are too simple, too broad, or unrelated to the course outcomes.</p>
-    </section>
-
-    <section id="s12">
-      <h2 class="section-title"><span class="num">XII.</span> Proposal Defense Panel</h2>
-      <p>The Proposal Defense shall be conducted before an assigned panel. The panel may consist of:</p>
-      <ol class="plain">
-        <li>Project Instructor/Adviser</li>
-        <li>Networking/Technical Panelist</li>
-        <li>Software/Systems Panelist</li>
-        <li>Other designated faculty member/s</li>
-      </ol>
-      
-    </section>
-
-    <section id="s13">
-      <h2 class="section-title"><span class="num">XIII.</span> Proposal Defense Fee</h2>
-      <div class="fee-box"><div class="label">Panel Fee</div><div class="amount">₱1,000.00 per group</div></div>
-      <p>A panel fee shall be collected for the conduct of the project defense, subject to the applicable institutional policies and approval.</p>
-      <p>The fee is intended to support expenses associated with the formal defense process, including panel participation, evaluation, documentation, and administrative requirements.</p>
-    
-    </section>
-
-    <section id="s14">
-      <h2 class="section-title"><span class="num">XIV.</span> Simplified Proposal Format</h2>
-      <p>The proposal should be concise and focused. A recommended proposal length is approximately <strong>5–10 pages</strong>, excluding appendices.</p>
-
-      <h3>1. Title Page</h3>
-      <p>Include: school, college/department, course, project title, group number, members, instructor/adviser, date.</p>
-
-      <h3>2. Proposed Project Title</h3>
-      <p>The title should clearly indicate: <strong>System + Purpose + Target Users + Networking Context</strong></p>
-      <div class="example-box"><span class="tag">Example</span>Network-Based Inventory and Monitoring System for a Small Retail Store</div>
-
-      <h3>3. Background of the Project</h3>
-      <p>Briefly explain: what problem exists, who experiences the problem, why the problem is important, how networking contributes to the solution.</p>
-      <p class="note">Recommended length: 1–2 pages</p>
-
-      <h3>4. Problem Statement</h3>
-      <p>Identify the major problem and specific problems.</p>
-      <div class="example-box">
-        <span class="tag">Example — General Problem</span>
-        The organization currently experiences difficulty in sharing inventory information between multiple workstations.
-        <div style="margin-top:10px;"><span class="tag">Specific Problems</span></div>
-        <ol class="plain" style="margin-bottom:0;">
-          <li>Inventory records are stored separately.</li>
-          <li>Users cannot access updated information simultaneously.</li>
-          <li>Manual data transfer causes delays.</li>
-          <li>There is no centralized access control.</li>
-          <li>Network availability is not monitored.</li>
-        </ol>
-      </div>
-
-      <h3>5. Project Objectives</h3>
-      <p>Objectives should be measurable.</p>
-      <div class="example-box">
-        <span class="tag">Example</span>
-        At the end of the project, the group shall be able to:
-        <ol class="plain" style="margin-bottom:0;">
-          <li>Design a network topology appropriate for the target environment.</li>
-          <li>Configure IP addressing and network connectivity.</li>
-          <li>Configure a centralized server or network service.</li>
-          <li>Develop or deploy an application accessible by network clients.</li>
-          <li>Implement basic network security controls.</li>
-          <li>Test connectivity and system functionality.</li>
-          <li>Document the complete network and system configuration.</li>
-        </ol>
-      </div>
-
-      <h3>6. Proposed Solution</h3>
-      <p>Briefly explain: what will be developed, how it will work, who will use it, how computers will communicate, and what network services are required.</p>
-
-      <h3>7. Proposed Network Architecture</h3>
-      <p>Provide a simple diagram showing:</p>
-      <div class="example-box"><span class="tag">Example</span>Clients → Switch/Router → Server → Application/Database/Internet</div>
-      <p>The diagram should identify: devices, IP addresses or network ranges, servers, clients, network connections, Internet connection, and network services.</p>
-
-      <h3>8. Proposed Technology and Tools</h3>
-      <table>
-        <thead><tr><th>Category</th><th>Proposed Tool</th></tr></thead>
-        <tbody>
-          <tr><td>Network simulation</td><td>Cisco Packet Tracer</td></tr>
-          <tr><td>Network analysis</td><td>Wireshark</td></tr>
-          <tr><td>Programming</td><td>Java / Python / PHP / etc.</td></tr>
-          <tr><td>Database</td><td>MySQL / PostgreSQL</td></tr>
-          <tr><td>Server</td><td>Windows / Linux</td></tr>
-          <tr><td>Web server</td><td>Apache / Nginx / IIS</td></tr>
-          <tr><td>Version control</td><td>Git / GitHub</td></tr>
-          <tr><td>Virtualization</td><td>VirtualBox / VMware</td></tr>
-          <tr><td>Hardware</td><td>Router / Switch / PC</td></tr>
-          <tr><td>Network medium</td><td>UTP / RJ45 / Wi-Fi</td></tr>
-        </tbody>
-      </table>
-      <p class="note">Only tools actually intended for the project should be listed.</p>
-    </section>
-
-    <section id="s15">
-      <h2 class="section-title"><span class="num">XV.</span> Proposal Defense Presentation</h2>
-      <h3>Recommended Presentation Flow</h3>
-      <ol class="plain">
-        <li>Project Title</li>
-        <li>Problem/Background</li>
-        <li>Target Users</li>
-        <li>Objectives</li>
-        <li>Proposed Solution</li>
-        <li>Network Architecture</li>
-        <li>Technologies and Tools</li>
-        <li>Proposed Application/System</li>
-        <li>Security Plan</li>
-        <li>Testing Plan</li>
-        <li>Expected Output</li>
-        <li>Project Timeline</li>
-        <li>Group Responsibilities</li>
-      </ol>
-      <h3>Suggested Presentation Time</h3>
-      <p>10–15 minutes presentation, followed by 5–10 minutes panel questioning.</p>
-      <p class="note"></p>
-    </section>
-
-    <section id="s16">
-      <h2 class="section-title"><span class="num">XVI.</span> Proposal Defense Output</h2>
-      <p>After the defense, the group must submit:</p>
-      <ul class="checklist">
-        <li>Approved proposal</li>
-        <li>Revised proposal, if required</li>
-        <li>Network architecture diagram</li>
-        <li>Initial system/application design</li>
-        <li>Project timeline</li>
-        <li>Group responsibility matrix</li>
-        <li>Initial list of hardware/software requirements</li>
-      </ul>
-      <p>A project may be classified as:</p>
-      <div class="grid2">
-        <div class="card"><b>Approved</b>The group may proceed.</div>
-        <div class="card"><b>Approved with Revisions</b>The group may proceed after completing specified revisions.</div>
-        <div class="card" style="grid-column:1/-1;"><b>Revise and Resubmit</b>The proposal requires substantial improvement before implementation.</div>
-      </div>
-    </section>
-
-    <section id="s17">
-      <h2 class="section-title"><span class="num">XVII.</span> Project Progress Map</h2>
-      <table>
-        <thead><tr><th>Phase</th><th>Major Activity</th><th>Expected Output</th></tr></thead>
-        <tbody>
-          <tr><td>Phase 1</td><td>Problem Identification</td><td>Problem statement</td></tr>
-          <tr><td>Phase 2</td><td>Project Proposal</td><td>Proposal document</td></tr>
-          <tr><td>Phase 3</td><td>Proposal Defense</td><td>Approved project</td></tr>
-          <tr><td>Phase 4</td><td>Network Planning</td><td>Network architecture</td></tr>
-          <tr><td>Phase 5</td><td>Network Configuration</td><td>Working network</td></tr>
-          <tr><td>Phase 6</td><td>Application/System Development</td><td>Initial working system</td></tr>
-          <tr><td>Phase 7</td><td>Network-System Integration</td><td>Connected system</td></tr>
-          <tr><td>Phase 8</td><td>Testing</td><td>Test results</td></tr>
-          <tr><td>Phase 9</td><td>Troubleshooting</td><td>Corrected system</td></tr>
-          <tr><td>Phase 10</td><td>Security Validation</td><td>Security checklist</td></tr>
-          <tr><td>Phase 11</td><td>Documentation</td><td>Final manuscript</td></tr>
-          <tr><td>Phase 12</td><td>Final Defense</td><td>Final demonstration</td></tr>
-        </tbody>
-      </table>
-    </section>
-
-    <section id="s18">
-      <h2 class="section-title"><span class="num">XVIII.</span> Weekly Progress Monitoring</h2>
-      <table>
-        <thead><tr><th>Week</th><th>Target</th><th>Actual Accomplishment</th><th>Problems</th><th>Action Taken</th><th>Adviser Signature</th></tr></thead>
-        <tbody>
-          <tr><td>1</td><td>Problem and project selection</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-          <tr><td>2</td><td>Proposal preparation</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-          <tr><td>3</td><td>Proposal defense/revision</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-          <tr><td>4</td><td>Network design</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-          <tr><td>5</td><td>Network configuration</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-          <tr><td>6</td><td>Application/system integration</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-          <tr><td>7</td><td>Testing and troubleshooting</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-          <tr><td>8</td><td>Documentation and final preparation</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-        </tbody>
-      </table>
-      <p class="note">The actual schedule may be adjusted by the instructor based on the academic calendar.</p>
-    </section>
-
-    <div class="part-divider"><div class="line"></div><span>Part II — Final Defense</span></div>
-
-    <section id="s19">
-      <h2 class="section-title"><span class="num">XIX.</span> Purpose of the Final Defense</h2>
-      <p>The Final Defense evaluates whether the group successfully transformed the approved proposal into a <strong>working network-based computing solution</strong>. The final defense must demonstrate actual evidence of:</p>
-      <div class="tag-list">
-        <span>Network connectivity</span><span>Network configuration</span><span>Application/system operation</span>
-        <span>Local communication</span><span>Online communication (if in scope)</span><span>Network services</span>
-        <span>Security</span><span>Testing</span><span>Troubleshooting</span><span>Documentation</span>
-        <span>Individual &amp; group understanding</span>
-      </div>
-    </section>
-
-    <section id="s20">
-      <h2 class="section-title"><span class="num">XX.</span> Final Project Requirements</h2>
-      <p>The completed project must demonstrate the following major components.</p>
-      <h3>A. Network Component</h3>
-      <p>The group must present: network topology, IP addressing scheme, subnet configuration, network devices, network services, routing (where applicable), VLAN (where applicable), DNS/DHCP (where applicable), Internet/WAN connection (where applicable).</p>
-      <h3>B. System/Application Component</h3>
-      <p>The project must contain a functional application, client-server system, web-based system, network service, network management system, communication system, or other approved computing solution. The system must communicate through the implemented network.</p>
-      <h3>C. System Software Component</h3>
-      <p>Where applicable, demonstrate how the system operates using appropriate operating system, server software, web server, database server, network service, virtual machine, network configuration utility, firewall, and authentication mechanism.</p>
-      <div class="callout">The goal is to show that <strong>system software and application software can operate together through the network.</strong></div>
-    </section>
-
-    <section id="s21">
-      <h2 class="section-title"><span class="num">XXI.</span> Required Final Demonstration</h2>
-      <p>During the Final Defense, the group should demonstrate the project in the following sequence:</p>
-
-      <h4><span class="step-num">1</span>Network Startup</h4>
-      <p>Show network devices, server, clients, and physical/virtual connections.</p>
-
-      <h4><span class="step-num">2</span>Network Configuration</h4>
-      <p>Show IP addresses, subnet mask, gateway, DNS, DHCP, and routing (if applicable).</p>
-
-      <h4><span class="step-num">3</span>Connectivity Test</h4>
-      <p>Demonstrate ping, client-to-server communication, server-to-client communication, DNS resolution (if applicable), and Internet connectivity (if applicable).</p>
-
-      <h4><span class="step-num">4</span>Application Demonstration</h4>
-      <p>Show the actual application/system operating through the network.</p>
-
-      <h4><span class="step-num">5</span>Multi-Client Demonstration</h4>
-      <p>When applicable, demonstrate two or more clients accessing or communicating with the system simultaneously.</p>
-
-      <h4><span class="step-num">6</span>Network Service Demonstration</h4>
-      <p>Demonstrate applicable services such as DHCP, DNS, file sharing, web server, database server, remote service, API, or socket communication.</p>
-
-      <h4><span class="step-num">7</span>Security Demonstration</h4>
-      <p>Demonstrate user authentication, access permissions, firewall/access control, secure communication, network segmentation, and other approved security mechanisms.</p>
-
-      <h4><span class="step-num">8</span>Troubleshooting Demonstration</h4>
-      <p>The panel may provide or request a simple network problem. Students should explain how they would:</p>
-      <ol class="plain">
-        <li>Identify the problem.</li>
-        <li>Determine the affected layer/component.</li>
-        <li>Test the connection.</li>
-        <li>Identify the cause.</li>
-        <li>Apply corrective action.</li>
-        <li>Verify the solution.</li>
-      </ol>
-    </section>
-
-    <section id="s22">
-      <h2 class="section-title"><span class="num">XXII.</span> Simplified Final Manuscript Format</h2>
-
-      <h3>Chapter 1 — Project Overview</h3>
-      <p>1.1 Background &nbsp;·&nbsp; 1.2 Problem Statement &nbsp;·&nbsp; 1.3 Objectives &nbsp;·&nbsp; 1.4 Scope and Limitations &nbsp;·&nbsp; 1.5 Significance of the Project</p>
-
-      <h3>Chapter 2 — Technical Foundation</h3>
-      <p>Discuss only the concepts directly related to the project: networking concepts, OSI/TCP-IP, protocols, network topology, IP addressing, client-server architecture, network services, security, and related technologies.</p>
-
-      <h3>Chapter 3 — Network and System Design</h3>
-      <p>Include network architecture, physical topology, logical topology, IP addressing table, device configuration, server configuration, application architecture, database architecture (if applicable), data flow, and communication protocols.</p>
-
-      <h3>Chapter 4 — Implementation</h3>
-      <p>Include hardware setup, network configuration, server configuration, software installation, application deployment, network integration, and security configuration.</p>
-
-      <h3>Chapter 5 — Testing and Evaluation</h3>
-      <p>Include connectivity testing, application testing, network service testing, multi-client testing, security testing, performance testing, and troubleshooting results.</p>
-
-      <h3>Chapter 6 — Conclusion and Recommendations</h3>
-      <p>Include project accomplishment, problems encountered, solutions applied, lessons learned, recommendations, and possible future improvements.</p>
-    </section>
-
-    <section id="s23">
-      <h2 class="section-title"><span class="num">XXIII.</span> Required Final Deliverables</h2>
-      <p>Each group must submit the following:</p>
-
-      <h4>1. Final Project Manuscript</h4>
-      <p>PDF and/or printed copy as required by the instructor.</p>
-
-      <h4>2. Network Diagram</h4>
-      <p>Must show the complete logical and physical network.</p>
-
-      <h4>3. IP Addressing Table</h4>
-      <table>
-        <thead><tr><th>Device</th><th>Interface</th><th>IP Address</th><th>Subnet Mask</th><th>Gateway</th><th>DNS</th></tr></thead>
-        <tbody>
-          <tr><td>Router</td><td>LAN</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-          <tr><td>Server</td><td>NIC</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-          <tr><td>Client 1</td><td>NIC</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-          <tr><td>Client 2</td><td>NIC</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-        </tbody>
-      </table>
-
-      <h4>4. Network Configuration Files</h4>
-      <p>Submit applicable: router configuration, switch configuration, firewall configuration, server configuration, DHCP configuration, DNS configuration, VLAN configuration.</p>
-
-      <h4>5. Source Code</h4>
-      <p>For projects involving programming: complete source code, configuration files, database files/scripts, API files, required libraries.</p>
-
-      <h4>6. Executable/Deployment Version</h4>
-      <p>Submit the working version required to run the system.</p>
-
-      <h4>7. Database</h4>
-      <p>If applicable: database schema, SQL file, ERD, sample data.</p>
-
-      <h4>8. Testing Documentation</h4>
-      <p>Include evidence of ping tests, network service tests, application tests, multi-client tests, security tests, and performance tests.</p>
-
-      <h4>9. User Guide</h4>
-      <p>Provide basic instructions for users.</p>
-
-      <h4>10. Technical/Administrator Guide</h4>
-      <p>Include installation, network configuration, server setup, application deployment, user management, and troubleshooting.</p>
-
-      <h4>11. Project Presentation</h4>
-      <p>PowerPoint/slide presentation for the Final Defense.</p>
-
-      <h4>12. Project Demonstration</h4>
-      <p>The system must be ready for actual demonstration.</p>
-    </section>
-
-    <section id="s24">
-      <h2 class="section-title"><span class="num">XXIV.</span> Final Submission Checklist</h2>
-      <p>Before the Final Defense, the group should verify:</p>
-      <table>
-        <thead><tr><th>Requirement</th><th class="center">Submitted</th><th class="center">Verified</th></tr></thead>
-        <tbody>
-          <tr><td>Final manuscript</td><td class="center">☐</td><td class="center">☐</td></tr>
-          <tr><td>Network diagram</td><td class="center">☐</td><td class="center">☐</td></tr>
-          <tr><td>IP addressing table</td><td class="center">☐</td><td class="center">☐</td></tr>
-          <tr><td>Router configuration</td><td class="center">☐</td><td class="center">☐</td></tr>
-          <tr><td>Switch configuration</td><td class="center">☐</td><td class="center">☐</td></tr>
-          <tr><td>Server configuration</td><td class="center">☐</td><td class="center">☐</td></tr>
-          <tr><td>Application/system</td><td class="center">☐</td><td class="center">☐</td></tr>
-          <tr><td>Source code</td><td class="center">☐</td><td class="center">☐</td></tr>
-          <tr><td>Database</td><td class="center">☐</td><td class="center">☐</td></tr>
-          <tr><td>Network configuration files</td><td class="center">☐</td><td class="center">☐</td></tr>
-          <tr><td>Testing results</td><td class="center">☐</td><td class="center">☐</td></tr>
-          <tr><td>Security documentation</td><td class="center">☐</td><td class="center">☐</td></tr>
-          <tr><td>User manual</td><td class="center">☐</td><td class="center">☐</td></tr>
-          <tr><td>Technical manual</td><td class="center">☐</td><td class="center">☐</td></tr>
-          <tr><td>Presentation slides</td><td class="center">☐</td><td class="center">☐</td></tr>
-          <tr><td>Backup copy</td><td class="center">☐</td><td class="center">☐</td></tr>
-        </tbody>
-      </table>
-    </section>
-
-    <section id="s25">
-      <h2 class="section-title"><span class="num">XXV.</span> Final Defense Presentation Format</h2>
-      <h3>Recommended Sequence</h3>
-      <ol class="plain">
-        <li><strong>Introduction</strong> — 2 minutes: project title, members, problem addressed</li>
-        <li><strong>Project Objectives</strong> — 2 minutes</li>
-        <li><strong>Network Architecture</strong> — 3 minutes: physical topology, logical topology, IP addressing, network devices</li>
-        <li><strong>System/Application Architecture</strong> — 3 minutes: application, server, database, client communication</li>
-        <li><strong>Configuration Demonstration</strong> — 5 minutes</li>
-        <li><strong>Working System Demonstration</strong> — 5–10 minutes</li>
-        <li><strong>Security and Troubleshooting</strong> — 3 minutes</li>
-        <li><strong>Testing and Results</strong> — 2 minutes</li>
-        <li><strong>Conclusion</strong> — 1 minute</li>
-        <li><strong>Panel Questions</strong></li>
-      </ol>
-      <p class="note">The actual duration may be adjusted by the instructor depending on the number of groups.</p>
-    </section>
-
-    <section id="s26">
-      <h2 class="section-title"><span class="num">XXVI.</span> Final Defense Evaluation Areas</h2>
-      <table>
-        <thead><tr><th style="width:30%;">Area</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr><td>Problem Relevance</td><td>Addresses a clear and meaningful computing/networking problem</td></tr>
-          <tr><td>Network Design</td><td>Appropriate physical and logical network architecture</td></tr>
-          <tr><td>Network Configuration</td><td>Correct addressing, services, protocols, and device configuration</td></tr>
-          <tr><td>System Integration</td><td>Application/system successfully operates through the network</td></tr>
-          <tr><td>Technical Implementation</td><td>Appropriate use of hardware, software, tools, and technologies</td></tr>
-          <tr><td>Security</td><td>Appropriate access control and network protection</td></tr>
-          <tr><td>Testing</td><td>Systematic connectivity, functionality, and performance testing</td></tr>
-          <tr><td>Troubleshooting</td><td>Ability to identify and resolve network/system problems</td></tr>
-          <tr><td>Documentation</td><td>Complete and technically accurate documentation</td></tr>
-          <tr><td>Presentation</td><td>Clear and organized technical communication</td></tr>
-          <tr><td>Teamwork</td><td>Evidence of meaningful participation of members</td></tr>
-          <tr><td>Professionalism</td><td>Proper conduct, preparation, and ethical use of technology</td></tr>
-        </tbody>
-      </table>
-    </section>
-
-    <section id="s27">
-      <h2 class="section-title"><span class="num">XXVII.</span> Individual Participation</h2>
-      <p>Although the project is completed by groups, every member must demonstrate individual knowledge. During the defense, the panel may ask individual members questions related to:</p>
-      <ul>
-        <li>Their assigned responsibility</li>
-        <li>Network configuration</li>
-        <li>Application development</li>
-        <li>Troubleshooting</li>
-        <li>Security</li>
-        <li>System architecture</li>
-        <li>Protocols</li>
-        <li>Testing</li>
-        <li>Project decisions</li>
-      </ul>
-      <div class="callout">A member should not receive full credit for work that he/she cannot explain or demonstrate.</div>
-    </section>
-
-    <section id="s28">
-      <h2 class="section-title"><span class="num">XXVIII.</span> Minimum Technical Expectations</h2>
-      <p>The project should demonstrate, as applicable:</p>
-      <h3>Basic Level</h3>
-      <ul>
-        <li>Two or more connected devices</li>
-        <li>Correct IP configuration</li>
-        <li>Successful connectivity</li>
-        <li>File/resource/application sharing</li>
-      </ul>
-      <p class="note">Changes and adjustments may occur on the process phase.</p>
-    </section>
-
+        <li>Problem statement and scenario chosen</li>
+        <li>Research summary and annotated bibliography</li>
+        <li>Events and assumptions</li>
+        <li>Sourced table of probabilities</li>
+        <li>Probability tree diagram</li>
+        <li>Step-by-step solution (Total Probability and Bayes)</li>
+        <li>Sensitivity analysis (≥ 3 varied values, table or graph)</li>
+        <li>Plain-language interpretation and comparison with sources</li>
+        <li>Limitations of the model</li>
+        <li>Ethical discussion</li>
+        <li>References in APA format</li>
+      </ul></div>
+    <div class="card alt"><h3>2 · Computation file</h3>Spreadsheet or short program (Java optional) that reproduces the computations and lets the user change the input values. Code or formulas must be readable and commented.</div>
+    <div class="card"><h3>3 · Presentation</h3><strong>8–10 minutes</strong> plus 3–5 minutes Q&amp;A, with slides or a poster, including one slide on the research findings.</div>
+    <div class="card alt"><h3>4 · Contribution sheet</h3>Individual contribution sheet listing each member's tasks, signed by all members.</div>
   </div>
+</section>
 
-  <footer>
-    Mabini Colleges, Inc. · College of Computer Studies · NC 101 Networks and Communications <br> Instructor - Ian Goodwin G. Agapito 
-  </footer>
+<section id="ethics">
+  <h2><span class="n">6</span>Ethical Discussion Component</h2>
+  <p>The report must include a section of <strong>at least one page</strong> that addresses:</p>
+  <div class="cards">
+    <div class="card"><h3>Bias</h3>Could the priors or training data be biased or unrepresentative? Who might be unfairly affected?</div>
+    <div class="card alt"><h3>False positives &amp; negatives</h3>What are the real-world consequences of each type of error in your scenario? Which is more costly?</div>
+    <div class="card"><h3>Privacy</h3>What data would be needed, and how should it be collected, stored, and protected? Refer to the Data Privacy Act of 2012 (RA 10173) where applicable.</div>
+    <div class="card alt"><h3>Transparency &amp; accountability</h3>How should the system's limits be communicated to its users?</div>
+  </div>
+</section>
 
+<section id="timeline">
+  <h2><span class="n">7</span>Timeline</h2>
+  <div class="tl">
+    <div class="step"><span class="stage">Week 1</span><br><strong>Group formation, scenario selection, review of Bayes' Theorem</strong><br>Output: scenario choice submitted</div>
+    <div class="step"><span class="stage">Week 2</span><br><strong>Research:</strong> find and read at least four credible sources and note candidate probability values<br>Output: preliminary source list</div>
+    <div class="step"><span class="stage">Week 3</span><br><strong>Project consultation</strong> (10–15 minutes per group)<br>Output: instructor-approved scenario, research plan, events, and priors</div>
+    <div class="step"><span class="stage">Week 4</span><br><strong>Research summary and annotated bibliography; computation, tree diagram, sensitivity analysis, ethical section</strong><br>Output: draft report and computation file</div>
+    <div class="step due"><span class="stage">Week 5 · Deadline</span><br><strong>Presentation and Q&amp;A; submission of final files</strong><br>Output: final report, computation file, slides, contribution sheet</div>
+  </div>
+</section>
+
+<section id="guidelines">
+  <h2><span class="n">8</span>Guidelines</h2>
+  <ul>
+    <li>All probability values must be <strong>stated clearly with a source or a reasonable assumption</strong>. Do not use real personal or medical data of identifiable people.</li>
+    <li>Every source must be <strong>real and verifiable</strong>. Invented sources, statistics, or quotations are treated as academic dishonesty.</li>
+    <li>Show <strong>every step</strong> of the computation. Answers without solutions receive no credit for that part.</li>
+    <li>Keep at least <strong>four decimal places</strong> during computation and round final answers to <strong>three or four decimal places</strong> (or as a percentage).</li>
+    <li>Cite all references (textbooks, articles, datasets, documentation) in a consistent format such as APA.</li>
+    <li>Academic integrity applies: copied work, or AI-generated work that members cannot explain, will be penalized. Every member must be able to explain any part of the project, including the research, during Q&amp;A.</li>
+    <li>Late submissions are subject to the instructor's deduction policy.</li>
+  </ul>
+</section>
+
+<section id="rubric">
+  <h2><span class="n">9</span>Grading Rubric <small style="font-size:.9rem;color:var(--mut)">(100 points)</small></h2>
+  <div class="tw"><table style="min-width:760px">
+    <tr><th>Criteria</th><th>Excellent (4)</th><th>Satisfactory (3)</th><th>Needs Improvement (2)</th><th>Poor (1)</th><th>Weight</th></tr>
+    <tr><td><strong>Research and sources</strong></td><td>At least four credible, relevant sources; explains how real systems use Bayesian reasoning; values traced to sources; limitations discussed</td><td>Four sources, mostly relevant; most values sourced; explanation somewhat shallow</td><td>Fewer than four sources or weak sources; many values assumed without sourcing</td><td>Little or no research; unreliable or invented sources</td><td><strong>15</strong></td></tr>
+    <tr><td><strong>Problem formulation and assumptions</strong></td><td>Events, priors, and conditionals clearly defined, realistic, and justified; assumptions stated</td><td>Mostly clear; minor gaps in justification</td><td>Several unclear or unjustified values</td><td>Missing or incorrect formulation</td><td><strong>10</strong></td></tr>
+    <tr><td><strong>Correct use of the Law of Total Probability and Bayes' Theorem</strong></td><td>All computations correct, complete, and well organized</td><td>Minor computational errors that do not change the conclusion</td><td>Major errors in one part</td><td>Incorrect or missing application</td><td><strong>20</strong></td></tr>
+    <tr><td><strong>Tree diagram and solution presentation</strong></td><td>Accurate, labeled tree; steps easy to follow</td><td>Tree has minor labeling errors; steps mostly clear</td><td>Tree incomplete or steps hard to follow</td><td>No tree or no steps shown</td><td><strong>10</strong></td></tr>
+    <tr><td><strong>Sensitivity analysis and interpretation</strong></td><td>Varies at least three values, explains patterns and base-rate effect, compares results with sources</td><td>Analysis correct but interpretation shallow</td><td>Limited analysis or partly incorrect interpretation</td><td>Missing or incorrect</td><td><strong>10</strong></td></tr>
+    <tr><td><strong>Ethical discussion</strong></td><td>Addresses bias, errors, privacy, and accountability with specific, scenario-based reasoning</td><td>Covers most points with some specifics</td><td>General statements, few links to the scenario</td><td>Missing or irrelevant</td><td><strong>10</strong></td></tr>
+    <tr><td><strong>Computation file (spreadsheet or code)</strong></td><td>Works correctly, accepts changed inputs, readable and commented</td><td>Works with minor issues</td><td>Partly working or hard to follow</td><td>Not working or not submitted</td><td><strong>10</strong></td></tr>
+    <tr><td><strong>Presentation and Q&amp;A</strong></td><td>Clear, well paced, within time; includes research findings; all members answer accurately</td><td>Generally clear; most questions answered</td><td>Unclear organization; several questions unanswered</td><td>Disorganized; unable to explain the work</td><td><strong>10</strong></td></tr>
+    <tr><td><strong>Report quality and references</strong></td><td>Well organized, clear writing, correct APA references, consistent format</td><td>Minor writing or format issues</td><td>Several writing or format issues; few references</td><td>Poorly organized; no references</td><td><strong>5</strong></td></tr>
+    <tr class="total"><td>Total</td><td></td><td></td><td></td><td></td><td>100</td></tr>
+  </table></div>
+  <div class="callout"><strong>Scoring each criterion:</strong> Score = (rating ÷ 4) × weight. Example: a rating of 3 on a 20-point criterion earns 15 points.
+    <div class="score" style="margin-top:8px"><span>15 / 20</span><div class="bar"><i style="width:75%"></i></div></div></div>
+</section>
+
+</main>
+
+<footer>
+  <em>DS 102 Discrete Structures · BS Computer Science</em><br>
+  <b>Ian Godwin G. Agapito, Instructor</b>
+</footer>
 </body>
 </html>
